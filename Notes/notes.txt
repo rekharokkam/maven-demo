@@ -1,0 +1,23 @@
+Our project is dependent on a library ex- spring framework. Spring framework might in turn be dependent on other libraries. this is called transitive dependencies
+It is possible to mention dependency scoping
+POM - Project Object Model
+
+groupId, artifactId and version number together create an address for an artifact
+
+repositories hold all of our artifacts and dependencies
+
+dependencies are the library files that we are dependent on
+artifacts are the libraries we have generated, archetypes, plugins
+
+2 types of repositories - Local - on the machine , Remote - we access via some type of protocol
+Local repo will take precedence over remote repo when we perform dependency resolution
+
+what is a Plug-in - is a collection of goals
+
+goals are the actions we perform / Methods /Operations on source code.
+
+All the work done in maven is done through plugins and goals.
+
+Maven has lifecycle. A lifecycle is just a named sequence of events
+
+maven has 3 lifecycles - clean, default and site
