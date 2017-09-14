@@ -1,6 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.learning.build</groupId>
+  
+  <!-- DEMO - how a source and target directory can be different from that of maven's conventional structure -->
+  <!--  build -->
+  	<!--  sourceDirectory>src/nonstandard/java</sourceDirectory --> <!-- Non standard source folder -->
+  	<!-- directory>myTarget</directory--> <!-- directory different from that of standard "target" directory for all target functionalities. Path here is relative to base directory this is not a hard rule, directory structure like /users/ac-rekharokkam/.. can be provided --> 
+  <!-- /build -->
+   
+  <modelVersion>4.0.0</modelVersion><!-- It is mandatory to mention this tag for maven 2 and 3 -->
   <artifactId>maven-demo</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <groupId>com.learning.build</groupId> <!-- If using parent remove this, if parent's groupId matches with this groupId -->
+  <version>1.0.0</version> <!-- remove this element if using parent and if parent's version matches this element -->
+  
+  <packaging>jar</packaging> <!-- "jar" is the default value for the element packaging. If value is "jar" this element need not be added in the pom.xml file-->
+  
+  <!-- DEMO - inheriting from parent pom 
+  <parent>
+	<artifactId>organization-parent-pom</artifactId>
+	<groupId>com.learning.build</groupId>
+	<version>1.0.0</version>
+  </parent>
+-->
+
+  <!-- DEMO - profiles -->
+  
+
 </project>

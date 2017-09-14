@@ -1,3 +1,5 @@
+Maven's funda is convention over configuration
+
 Our project is dependent on a library ex- spring framework. Spring framework might in turn be dependent on other libraries. this is called transitive dependencies
 It is possible to mention dependency scoping
 POM - Project Object Model
@@ -18,6 +20,30 @@ goals are the actions we perform / Methods /Operations on source code.
 
 All the work done in maven is done through plugins and goals.
 
-Maven has lifecycle. A lifecycle is just a named sequence of events
+Maven has life cycle. A life cycle is just a named sequence of events
 
-maven has 3 lifecycles - clean, default and site
+maven has 3 life cycles - clean, default and site
+by far "default" life cycle is most widely used.
+
+First command I ran was "mvn package"
+
+when we run "mvn package" - we are executing maven "default" lifecycle and "package" phase. This phase will create a jar file that contains the contents of our project.
+every phase that preceedes the current phase will be run by default
+precceding phases - compile and test will be executed.
+
+mvn site // Life cycle - site , phase - site
+
+Base directory is always the folder that contains the pom file.
+
+One pom file can be derived from another pom file. In child pom we can override some of the specifications mentioned in the parent pom.
+Every pom inherits from a Super pom much like every class in java inherits from Object class.
+How to access this super pom file - navigate to - /Users/ac-rekharokkam/Applications/apache-maven-3.5.0/lib/maven-model-builder-3.5.0.jar . Open the pom-4.0.0.xml file
+Other way of accessing the same file is - child pom with super inherited pom - mvn help:effective-pom
+
+Each pom can also inherit from another pom that we built.
+
+When ever we have parent-child relationship first step is to run "mvn install" in the parent directory. what this does is, it will take the parent pom and put it in our local repository.
+
+Maven profiles help us build projects for different environments. Customizing the build for an environment
+
+Activator is a way to look at something like an environment variable see what its value is determine by that value what profile to run.

@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <build>
+  	<sourceDirectory>src/nonstandard/java</sourceDirectory> <!-- Non standard source folder -->
+  	<directory>myTarget</directory> <!-- directory different from that of standard "target" directory for all target functionalities. Path here is relative to base directory this is not a hard rule even directory structure like /users/ac-rekharokkam/.. can be provided -->
+  </build>
+  
+  <modelVersion>4.0.0</modelVersion><!-- It is mandatory to mention this tag for maven 2 and 3 -->
+  <groupId>com.learning.build</groupId>
+  <artifactId>maven-demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version> <!-- Kind of time stamp -->
+  
+  <packaging>jar</packaging> <!-- "jar" is the default value for the element packaging. If value is "jar" this element need not be added in the pom.xml file-->
+  
+  <!-- Additional Optional element -->
+  
+  <name> Learning Maven build tool</name> <!-- An informal name for the project -->
+  <description>This project was created to follow along the teacher</description>
+  <url>https://www.safaribooksonline.com/library/view/learning-apache-maven/9781771373661/video212486.html</url> <!-- an URL from where additional Info can be obtained -->
+  
+  <!-- About Licences for this project -->
+  <licenses>
+  	<license>
+  		<name> Apache Licence</name>
+  		<comments>We are pretty good about sharing</comments>
+  	</license>
+  </licenses>
+
+	<!-- Organization, Developer information -->
+	<organization>
+		<name>avenuecode</name>
+		<url>http://www.avenuecode.com</url>
+	</organization>	
+	
+	<developers>
+		<developer>
+			<name>Rekha Rokkam</name>
+			<organization>Avenuecode LLC</organization>
+			<organizationUrl>http://www.avenuecode.com</organizationUrl>
+		</developer>
+	</developers>
+  
+  <!-- Additional Optional element -->
+  
+</project>
