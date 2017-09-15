@@ -46,4 +46,12 @@ When ever we have parent-child relationship first step is to run "mvn install" i
 
 Maven profiles help us build projects for different environments. Customizing the build for an environment
 
-Activator is a way to look at something like an environment variable see what its value is determine by that value what profile to run.
+Activator is a way to look at something like an environment variable see what its value is determine by that value what profile to run. If maven finds the value then it runs per what is 
+provided inside the profile element.
+
+Maven projects can be generated using the plug in provided by maven called archetype. They are like templates we can use to build our own project. "mvn archetype:generate".
+mvn eclipse:eclipse - is the eclipse plugin that will provide eclipse directory structure.
+Steps to manually generate is - 1) run "mvn archetype:generate 2) "mvn eclipse:eclipse 3) In eclipse import either maven project OR general existing project. 
+
+
+
