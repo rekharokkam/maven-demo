@@ -28,6 +28,7 @@
 
 	<!--  Anything available within the regular pom is also available within the profile. Any element inside of profile overrides the pom's elements when run with the specific profile. -->
 	<!-- How to run this specific profile - "mvn -Pproduction package" -->
+	
 	<profiles>
 		<profile>
 			<id>production</id>
@@ -42,5 +43,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
