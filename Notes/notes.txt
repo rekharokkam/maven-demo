@@ -50,8 +50,60 @@ Activator is a way to look at something like an environment variable see what it
 provided inside the profile element.
 
 Maven projects can be generated using the plug in provided by maven called archetype. They are like templates we can use to build our own project. "mvn archetype:generate".
-mvn eclipse:eclipse - is the eclipse plugin that will provide eclipse directory structure.
+mvn eclipse:eclipse - is the eclipse plugin that will provide eclipse directory structure. Kind of re-building eclipse structure.
 Steps to manually generate is - 1) run "mvn archetype:generate 2) "mvn eclipse:eclipse 3) In eclipse import either maven project OR general existing project. 
+
+search.maven.org - maven central repository to search all the jars/software available for download
+
+dependencies
+------------
+Once any jar is added as dependent in pom.xml file then the jar is downloaded to - /Users/ac-rekharokkam/.m2/repository. If manually removed from this location then when we run 
+"mvn dependency:copy-dependecies" it downloads to the .m2 location again and then to - /Users/ac-rekharokkam/Documents/Rekha/workspace/maven-demo/target location. 
+the way dependencies work is - first download the dependencies to .m2 location and then copy to local target dependency folder. When mvn dependency plugin is run then maven checks for the jar
+file of specified version in the .m2 location if found then copies the jar file to local target - dependency folder. When a dependency is mentioned in the pom file its only downloaded to .m2 directory
+but not to project target directory on when specific goals are run it is copied.
+
+
+Remote respositories
+--------------------
+Default repo can be checked by executing the file - mvn help:effective-pom
+Additional remote repos can be added by editing the settings.xml at the path - /Users/ac-rekharokkam/Applications/apache-maven-3.5.0/conf/settings.xml.
+For changes made refer to the comments <!-- Added by me to test remote repos - Starts here--> in the above file.
+
+Scope
+-----
+Default scope of a dependency is "compile". "compile" scope is available during build, test and run phases of our project. way to test is mvn compile
+Other scopes are - 
+	import - normally not at all used
+	provided - When the dependency should be provided the JDK or the container we are using. This is available for build and test BUT not for deploy as the container would be providing this.
+		Ex - servlet-api jar file. This jar file is needed only for build and test BUT not for packaging as the container in which deployment happens will provide this jar file.
+	runtime - this is available only during runtime. Ex- a JDBC provider jar, this jar is not needed for compiling but is needed only for running the app. Not used much. It doesn't hurt
+	to add these jars to compile scope.
+	system - teacher does not recommend this approach. If we have jars placed in the system file path, then this dependency helps get it. So the risk is if the file paths differ then
+	this dependency becomes more rigid
+	test - available only for test scope.
+	
+building - mvn compile, 
+packaging - mvn package - jar/war/ear
+testing - mvn test
+
+
+conflict resolution
+-------------------
+refer to maven-manually-generated project and its dependency on 2 other projects - maven-conflict-example and maven-conflict-example2. Both the conflict projects use - commons-lang3 jar file. 
+example2 uses version 3.0 and example uses 3.3.2. Maven is smart to pick the latest 3.3.2. If this is not the desired behavior if the intent is to pick lower version then it needs to be 
+mentioned in the pom file. refer to maven-manually-generated pom file.
+
+discovery
+---------
+Any jar file in the dependency section of pom file gets downloaded to .m2 directory. But "_remote.repositories" file is not generated. This file helps maven to decide how to link to the dependent pom file
+for local dependencies "mvn install" in the project which provides the dependency should be run. this goal creates the "_remote.repositories" file.
+Ex - "mvn install" should be run in both the projects - maven-conflict-example and maven-conflict-example2
+
+
+
+
+
 
 
 

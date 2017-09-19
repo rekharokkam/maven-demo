@@ -22,6 +22,45 @@
 -->
 
   <!-- DEMO - profiles -->
-  
-
+<!--   <build>
+  	<directory>/Users/ac-rekharokkam/Documents/Rekha/workspace/maven-demo/myTarget/development/deploy</directory>
+  </build>
+ -->
+	<!--  Anything available within the regular pom is also available within the profile. Any element inside of profile overrides the pom's elements when run with the specific profile. -->
+	<!-- How to run this specific profile - "mvn -Pproduction package" -->
+	
+<!-- 	<profiles>
+		<profile>
+			<id>production</id>
+			<activation>
+				<property>
+					<name>env.PACKAGE_ENV</name>
+					<value>PROD</value>
+				</property>
+			</activation>
+			<build>
+				<directory>/Users/ac-rekharokkam/Documents/Rekha/workspace/maven-demo/myTarget/production/deploy</directory>
+			</build>
+		</profile>
+	</profiles> -->
+	
+	<dependencies>
+	
+		<dependency>
+	   	 	<groupId>org.apache.commons</groupId>
+	    	<artifactId>commons-lang3</artifactId>
+	    	<version>3.6</version>
+		</dependency>
+		
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.12</version>
+	      <scope>test</scope>
+	    </dependency>
+		
+	</dependencies>
+	
+	
+	
 </project>

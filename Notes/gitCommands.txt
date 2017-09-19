@@ -1,0 +1,5 @@
+--Comparing local and remote files
+git diff origin/ACOB-46:api/src/main/java/com/mutsys/dragonfly/api/resource/AbstractApiResource.java api/src/main/java/com/mutsys/dragonfly/api/resource/AbstractApiResource.java
+
+--forcebly overwrite the local changes with git HEAD
+git reset --hard HEAD  
