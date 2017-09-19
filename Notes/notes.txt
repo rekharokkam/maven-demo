@@ -96,9 +96,94 @@ mentioned in the pom file. refer to maven-manually-generated pom file.
 
 discovery
 ---------
-Any jar file in the dependency section of pom file gets downloaded to .m2 directory. But "_remote.repositories" file is not generated. This file helps maven to decide how to link to the dependent pom file
-for local dependencies "mvn install" in the project which provides the dependency should be run. this goal creates the "_remote.repositories" file.
-Ex - "mvn install" should be run in both the projects - maven-conflict-example and maven-conflict-example2
+
+
+Lifecycle
+---------
+Lifecycle consists of a set of stages / steps / phases as we build our artifact. There are 3 inbuilt lifecycles - default, clean and site. Each Lifecycle has its own phases.
+A goal will bind be bound to a lifecycle specific phase. a goal can be thought of as a method on a class.
+mvn clean - clean phase of clean lifecycle. Use help plugin to learn a little more about this phase. 
+mvn help:describe -Dcmd=clean
+mvn help:describe -Dcmd=deploy
+
+argument -Dcmd is only for phases
+
+multiple plugins / goals can be used at the same time - mvn clean install
+
+Lifecycle Phases
+----------------
+default lifecycle has 23 phases.It is the default lifecycle that will be used the most. All phases below are from default lifecycle. 
+
+Compile - 
+compiles the source code within our src/main/java directory.
+
+Test-compile - 
+compiles the tests found under src/test/java directory. This cannot be executed on its own.
+
+Test -
+Runs unit tests using a suitable framework. These tests should not require the code to be deployed or packaged. By default maven will stop if any of the builds fail. 
+But it can be configured to skip the tests. 
+
+Package - 
+Take the compiled code and package it in the desired format such as jar, war
+
+
+Install - 
+Takes the package built and installs it in the local repo. 
+Any jar file in the dependency section of pom file gets downloaded to .m2 directory. But "_remote.repositories" file is not generated. This file helps maven to decide 
+how to link to the dependent pom file for local dependencies.
+"mvn install" in the project which provides the dependency should be run. this goal creates the "_remote.repositories" file.
+Ex - "mvn install" should be run in both the projects - maven-conflict-example and maven-conflict-example2 for dependencies to be resolved for the project maven-manually-generated.
+
+This phase allows other projects to be dependent on this project.
+
+Deploy -
+This pushes our artifact to remote repository like maven central or company specific repo for sharing with other developers and projects.
+
+
+GOals and PLUGins
+-----------------
+Goals 	perform tasks. These tasks are run against our project for something to happen. Goals can be compared methods in a class.
+Plugin comprises of a bunch of Goals. Plugin is analogous to a class which represents a collection of methods.
+syntax to execute a goal on a plugin is - mvn <plugin>:<goal> Ex - mvn compiler:compile.
+where these plugins come from - super pom - mvn help:effective-pom
+
+To get more details on the plugin - mvn help:describe -Dplugin=compiler
+-Dplugin - this argument is for plugins
+Get more help on the compiler goal - mvn compiler:help -Ddetail=true -Dgoal=compile 
+
+mvn help:describe -Dcmd=compiler:compile -Ddetail=true - to get more detailed information on the goal.
+
+There are 2 different ways to set the properties for a plugin
+
+1) Through command like argument - 
+run help describe command as above and copy the property to be set.
+mvn compiler:compile -Dmaven.compiler.verbose=true
+
+2) Set the property through pom.xml file
+One advantage of this approach is that they will be applied when we invoke the plugin goal directly OR when the goal is invoked by a lifecycle phase. This is a better approach.
+After setting this property just execute - mvn compile
+
+Custom plugin 
+-------------
+Navigate to the workspace directory and execute the command -
+mvn archetype:generate -DgroupId=com.learning.build -DartifactId=first-custom-plugin -DarchetypeArtifactId=maven-archetype-mojo -DarchetypeGroupId=org.apache.maven.archetypes
+after the above command completes, execute - mvn eclipse:eclipse
+Then import the new project into the workspace.
+mvn install - to make this project available inside the local repo for any other project requiring this plugin.
+
+
+There are 2 ways to execute this plugin
+1) Command line
+To test the plugin - in the terminal go to maven-manually-generated project and run the command - mvn com.learning.build:first-custom-plugin:touch 
+This will demonstrate how this plugin ran against the maven-manually-generated project. in maven-manually-generated project navigate to target directory and check for touch.txt file.
+
+2) Adding the plugin to maven-manually-generated pom file
+add the details to the pom of the plugin and run mvn install to make sure the latest changes are available to other projects.
+way to run custom plugin is - navigate to maven-manually-generated project and execute - mvn fCustom:touch
+
+ 
+
 
 
 
