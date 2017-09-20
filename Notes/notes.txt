@@ -63,6 +63,12 @@ the way dependencies work is - first download the dependencies to .m2 location a
 file of specified version in the .m2 location if found then copies the jar file to local target - dependency folder. When a dependency is mentioned in the pom file its only downloaded to .m2 directory
 but not to project target directory on when specific goals are run it is copied.
 
+Later notes for dependencies
+----------------------------
+if child project needs to inherit dependencies mentioned in the parent pom then run mvn dependency:copy-dependencies
+Way I tested. Created a new archetype project - maven-test-inheritance and linked to maven-parent. Mentioned commons-lang3 file as dependency in parent pom but not in the child pom.
+ran mvn install from the parent project. Then ran mvn dependency:copy-dependencies from child project and all the necessary jars were downloaded and had no issues with importing of classes.
+
 
 Remote respositories
 --------------------
@@ -94,17 +100,13 @@ refer to maven-manually-generated project and its dependency on 2 other projects
 example2 uses version 3.0 and example uses 3.3.2. Maven is smart to pick the latest 3.3.2. If this is not the desired behavior if the intent is to pick lower version then it needs to be 
 mentioned in the pom file. refer to maven-manually-generated pom file.
 
-discovery
----------
-
-
 Lifecycle
 ---------
 Lifecycle consists of a set of stages / steps / phases as we build our artifact. There are 3 inbuilt lifecycles - default, clean and site. Each Lifecycle has its own phases.
 A goal will bind be bound to a lifecycle specific phase. a goal can be thought of as a method on a class.
 mvn clean - clean phase of clean lifecycle. Use help plugin to learn a little more about this phase. 
-mvn help:describe -Dcmd=clean
-mvn help:describe -Dcmd=deploy
+mvn help:describe -Dcmd=clean -Ddetail
+mvn help:describe -Dcmd=deploy -Ddetail
 
 argument -Dcmd is only for phases
 
@@ -130,7 +132,7 @@ Take the compiled code and package it in the desired format such as jar, war
 
 Install - 
 Takes the package built and installs it in the local repo. 
-Any jar file in the dependency section of pom file gets downloaded to .m2 directory. But "_remote.repositories" file is not generated. This file helps maven to decide 
+Any jar file in the dependency section of pom file gets downloaded to .m2 directory. But "_remote.repositories" file is not generated. "_remote.repositories" file helps maven to decide 
 how to link to the dependent pom file for local dependencies.
 "mvn install" in the project which provides the dependency should be run. this goal creates the "_remote.repositories" file.
 Ex - "mvn install" should be run in both the projects - maven-conflict-example and maven-conflict-example2 for dependencies to be resolved for the project maven-manually-generated.
@@ -181,6 +183,34 @@ This will demonstrate how this plugin ran against the maven-manually-generated p
 2) Adding the plugin to maven-manually-generated pom file
 add the details to the pom of the plugin and run mvn install to make sure the latest changes are available to other projects.
 way to run custom plugin is - navigate to maven-manually-generated project and execute - mvn fCustom:touch
+
+Plugin Details
+--------------
+clean - can be used as "mvn clean" OR "mvn clean:clean"
+jar - plugin gets called from "package" plugin "mvn package" But it can be invoked separately as well.
+To force create a new jar from scratch - mvn jar:jar -Djar.finalName=test -Djar.forceCreation=true
+Like all other plugins even jar plugin can be invoked from either command line OR pom file.
+javadoc - mvn javadoc:javadoc
+for customization through pom file refer to the pom file of maven-manually-generated project pom file
+install and deploy - these 2 plugins help us distribute the maven artifacts we have built
+install - takes the artifact we have built and installs it to our local repo. Once in the local repo other maven projects can depend on that artifact. In order to install our project,
+we always need to compile our project and package it.
+deploy - there are 2 types of repositories - local and remote.
+deploy plugin is supposed to take our artifact and deploy it to a remote repositories. deploy plugin and deploy goal will ship out our artifact to one of those remote repositories.
+
+
+surefire plugin - this plugin is used to run tests. 
+command line argument to skip unit tests - mvn install -Dmaven.test.skip=true
+
+web - I created webapp project manually 
+1) mvn archetype:generate
+2) maven-archetype-webapp. Maven filters based on the filter I provide. Choose #1
+3) stereotype - same for all projects std input
+4) mvn eclipse:eclipse
+5) Import the project into the workspace
+One way to build this project is "mvn package" OR "mvn war:war"
+
+
 
  
 
