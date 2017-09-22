@@ -3,3 +3,6 @@ git diff origin/ACOB-46:api/src/main/java/com/mutsys/dragonfly/api/resource/Abst
 
 --forcebly overwrite the local changes with git HEAD
 git reset --hard HEAD  
+
+--Selectively add files under a folder
+git add projects/**
