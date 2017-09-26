@@ -21,5 +21,7 @@ public class App
 		else{
 			System.out.println("your input is not valid");
 		}
+		
+		scanner.close();
 	}
 }

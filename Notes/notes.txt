@@ -156,6 +156,8 @@ Get more help on the compiler goal - mvn compiler:help -Ddetail=true -Dgoal=comp
 
 mvn help:describe -Dcmd=compiler:compile -Ddetail=true - to get more detailed information on the goal.
 
+To get more info/help on a third party plugin - mvn help:describe -Dplugin=org.apache.maven.plugins:maven-release-plugin -Ddetail=true
+
 There are 2 different ways to set the properties for a plugin
 
 1) Through command like argument - 
@@ -214,8 +216,95 @@ mvn dependency:tree - lists the dependency in the tree format
 
 archetype plugin
 ----------------
-Teacher's archetype - spring-data-basic - this builds the project base for all the jpa projects
+Creating projects from custom archetype - 
+1) run "mvn archetype:generate"
+2) select Teacher's archetype - spring-data-basic - this builds the project base for all the jpa projects
+3) run "mvn eclipse:eclipse" and then import into the eclipse workspace.
+4) run a sample test by commenting applicaction-context.xml and enabling test-context.xml
 
+For Creating custom archetype 
+------------------------------
+1) From inside of the project run - mvn archetype:create-from-project. This will generate all the required files to - target/generated-sources/archetype
+2) in the terminal navigate to target/generated-soures/archetype and run "mvn install". This will make this archetype available in the local repo for use
+3) Now to test - go to workspace in the terminal. run "mvn archetype:generate" then select the artifactId you provided to the archetype project and other steps select default values.
+Once the above process is complete navigate to the project created above and run "mvn eclispe:eclipse". Then import the project into the workspace and notice that the files and pom.xml in 
+the new project.
+<packaging>maven-archetype</packaging> - it gives some clues to maven when we want to build/install this arcchetype
+
+Multi Module Project
+--------------------
+<packaging>pom</packaging> - indicates that the project will have only configuration and no source code.
+What I did - Create a project
+
+deploying to Tomcat through maven
+---------------------------------
+1) Edit the file tomcat-users.xml at the path - /Users/ac-rekharokkam/Applications/apache-tomcat-8.5.11/conf to add user and role . Refer to the file for user "tomcat" and role="manager-gui"
+2) edit the file settings.xml at the path - /Users/ac-rekharokkam/Applications/apache-maven-3.5.0/conf
+I added a new <server> element. look for the comments "<!-- Added by me for tomcat deployment Starts here -->" in the file for more info
+3) with in the pom file of "maven-webapp-demo" project add detials for tomcat deployment - 
+4) To deploy the web application run "mvn tomcat7:deploy"
+
+Encrypt passwords
+-----------------
+
+"mvn -emp test" - this command will generate an encrypted master password of text "test". run this command from inside of the maven-webapp-demo
+Create a new xml file "settings-security.xml" at /Users/ac-rekharokkam/.m2
+add the encrypted master password for "test" into the above file and save.
+From inside of the same project "maven-webapp-demo" run "mvn -ep s3cret". Copy the new encrypted password and edit the settings.xml at the path - /Users/ac-rekharokkam/Applications/apache-maven-3.5.0/conf
+add the encrypted password generated for tomcat password s3cret.
+Undeploy the app "mvn tomcat7:undeploy" and deploy again "mvn tomcat7:deploy". Can also use "mvn tomcat7:redeploy"
+
+properties
+----------
+For how to use custom properties refer to the projects - maven-parent and maven-test-inheritance
+In dragonfly project as well all the version numbers are set as custom properties in the parent pom file. All children pom files use these properties to configure the version numbers of
+dependencies
+
+For project property, environment property and java property refer to maven-webapp-demo.
+to test project property, environment property run "mvn package". To test environment property run "mvn site"
+
+Debugging
+---------
+mvn -help = lists all the options available for running mvn command
+mvn -v = displays the version of maven along with other useful information like the maven installed path 
+mvn compile:help = each plugin will also have a help goal that can provide more information on the plugin, different goals available on the plugin, etc
+mvn -q compile = -q option means quiet without any printouts
+mvn -X compile = -X prints a verobose output
+
+M2E plugin
+----------
+To check what all softwares are installed along with our IDE Help -> Search/About.
+m2e-demo = project built skipping archetype.
+m2e-webapp-demo = project built with webapp archetype
+mvn help:effective-pom is same as the tab "Effective POM" on any of the pom.xml file.
+
+When eclipse is newly configured/downloaded then sometimes we may not be able to see any dependency auto populated, for these issues fix is 
+go to the Menu "Spring Tool Suite" -> preferences -> Maven = "Download repository index updates on startup". then restart eclipse
+
+Importing projects
+------------------
+Maven projects created from command line can be imported into eclipse in 2 ways - 1) import existing projects 2) Import existing maven projects.
+When I tried to import a webapp project created using "maven-archetype-webapp" archetype [either m2e plugin OR command Line] as Maven project i had issues - "Description	Resource	Path	Location	Type
+The superclass "javax.servlet.http.HttpServlet" was not found on the Java Build Path	index.jsp	/m2e-webapp-demo/src/main/webapp	line 1	JSP Problem". Workaround for this issue is to
+add tomcat as the targeted runtime -> properties, Targeted Runtimes, Apache Tomcat. Even if you check the project facets it will have several facets it will be associated with multiple facets
+
+Sometimes nothing is returned when we search for a dependent jar file even though it exists - go to the .metadata folder of the workspace, then to .plugins, then to org.eclipse.m2e.core,
+nexus. There will be a bunch of folders whose names are somewhat hashed names, delete all these folders.
+
+Now if you import any project created using "maven-archetype-webapp" archetype [either m2e plugin OR command Line] as existing project into workspace then no issues as 
+there is no project facet associated with this import.
+
+Running a project
+------------------
+To run a project -> Select the project -> Run As -> maven clean / maven install / maven ...
+To add a custom maven goal -> Select the project -> Run As -> maven build and add a custom goal/s = compiler:compiler, compile package, clean compile package. Refer to the run-as configuration
+"m2e-demo-maven-build-custom-goal" on m2e-demo project
+
+Adding a third party plugin through m2e eclipse plugin
+------------------------------------------------------
+Select the project -> right click-> maven -> Add plugin -> search for "maven-release-plugin" -> click ok and check the pom.xml for an updated <build>section.
+Select the project -> Run As -> maven build -> add a goal from the above plugin -> release:update-versions. When this goal is run check pom.xml file. <version> tag gets a bump-up.
+Refer to the runas configuration "m2e-demo-maven-build-third-party-plugin-goal" on m2e-demo project
 
 
  

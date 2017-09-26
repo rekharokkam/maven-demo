@@ -6,3 +6,7 @@ git reset --hard HEAD
 
 --Selectively add files under a folder
 git add projects/**
+
+If .gitignore doesn't work then the fix is 
+run "git rm -r --cached ."
+then again check git status and accordingly add
