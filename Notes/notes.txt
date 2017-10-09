@@ -220,7 +220,8 @@ Creating projects from custom archetype -
 1) run "mvn archetype:generate"
 2) select Teacher's archetype - spring-data-basic - this builds the project base for all the jpa projects
 3) run "mvn eclipse:eclipse" and then import into the eclipse workspace.
-4) run a sample test by commenting applicaction-context.xml and enabling test-context.xml
+4) run a sample test by commenting application-context.xml and enabling test-context.xml
+Ex - maven-spring-basic-demo project. This project is not checked in as I didn't make any changes.
 
 For Creating custom archetype 
 ------------------------------
@@ -243,6 +244,7 @@ deploying to Tomcat through maven
 I added a new <server> element. look for the comments "<!-- Added by me for tomcat deployment Starts here -->" in the file for more info
 3) with in the pom file of "maven-webapp-demo" project add detials for tomcat deployment - 
 4) To deploy the web application run "mvn tomcat7:deploy"
+5) Start tomcat and start using the app in the browser - http://localhost:8080/
 
 Encrypt passwords
 -----------------
@@ -275,7 +277,7 @@ M2E plugin
 ----------
 To check what all softwares are installed along with our IDE Help -> Search/About.
 m2e-demo = project built skipping archetype.
-m2e-webapp-demo = project built with webapp archetype
+m2e-webapp-demo = project built with webapp archetype - maven-archetype-webapp - refer to the project m2e-webapp-demo created using this plugin
 mvn help:effective-pom is same as the tab "Effective POM" on any of the pom.xml file.
 
 When eclipse is newly configured/downloaded then sometimes we may not be able to see any dependency auto populated, for these issues fix is 
