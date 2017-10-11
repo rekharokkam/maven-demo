@@ -309,10 +309,12 @@ Select the project -> Run As -> maven build -> add a goal from the above plugin 
 Refer to the runas configuration "m2e-demo-maven-build-third-party-plugin-goal" on m2e-demo project
 
 
- 
-
-
-
+Difference between <dependencyManagement> and <dependencies> outside of <dependencyManagement> in the parent pom file - "maven-parent" and "mvn-test-inheritance"
+---------------------------------------------------------------------------------------------------------------------
+Any dependency mentioned directly under <dependencies> in the parent pom is inherited by all the children without choice. ex-org.apache.commons in parent pom file
+Dependencies mentioned inside of <dependencyManagement> is optional for the children. If any child needs to use it then child pom should mention that dependency 
+under <dependencies> element - just add artifactId and groupId without version and exclusions. In this case version and exclusions are specified by the parent pom.
+Ex - log4j in the parent pom
 
 
 
