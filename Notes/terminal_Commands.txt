@@ -1,0 +1,5 @@
+--Command to copy directories between VM and local Mac 
+scp -r vagrant@10.0.0.43:/usr/local/atg/atg-11.2/ /Users/ac-rekharokkam/Documents/RH/ATG/
+
+--Command to copy files between VM and local Mac 
+scp -r vagrant@10.0.0.43:/usr/local/atg/atg-11.2/DAS/lib/classes.jar /Users/ac-rekharokkam/Documents/RH/ATG/DAS/lib/classes.jar
