@@ -3,3 +3,74 @@ scp -r vagrant@10.0.0.43:/usr/local/atg/atg-11.2/ /Users/ac-rekharokkam/Document
 
 --Command to copy files between VM and local Mac 
 scp -r vagrant@10.0.0.43:/usr/local/atg/atg-11.2/DAS/lib/classes.jar /Users/ac-rekharokkam/Documents/RH/ATG/DAS/lib/classes.jar
+
+Book referred to on safaribooks - https://www.safaribooksonline.com/library/view/take-control-of/9781457191107/chap10.xhtml
+
+To make sure bash is the shell just use bash from anywhere. For me this didn't work as I was not able to get any entries from .bash_profile when i did bash
+
+Although you can run any command-line program on a remote computer while logged in with SSH, 
+one thing you can’t do in an SSH session is transfer files between your Mac and the remote computer. 
+
+2 programs that can be used for file transfers between mac and other remote server are sftp and scp
+
+The command you use to access an SFTP server is sftp.
+
+To open an SFTP connection, use this command: sftp username@host
+
+In order for you to connect to your local sftp server - apple -> System Preferences -> Sharing -> Remote Login should be enabled.
+
+/*
+
+To open an SFTP connection, use this command:
+
+sftp username@host
+
+As usual, replace username with your username on the remote computer and host with that computer’s domain name or IP address. Enter your password for the remote computer when prompted, and then you’ll see a “Connected to” message followed by this prompt:
+
+sftp>
+
+From here, you can use many command-line navigation techniques you’re already familiar with, such as cd and pwd to browse the file system.
+
+When you get to a directory containing a file you want to download to your local Mac, you can do it like this:
+
+get filename
+
+If you want to transfer an entire directory and its contents, add the -r (recursive) flag:
+
+get -r directory_name
+
+Either way, the item will be downloaded to whichever directory you were in on the command line when you ran the sftp command.
+
+Note: If the file you want isn’t in the current directory but you know its exact path, you can use get /path/to/file. Similarly, if you want to store it somewhere else on your local Mac, 
+you can add the destination path: get /path/to/remote_file /path/to/local_directory.
+
+To upload a file, use the put command, which follows exactly the same pattern as get:
+
+put /path/to/local_file /path/to/remote_directory
+
+So, you can use just the filename if it’s in your current directory, or you can specify a file from somewhere else on your Mac by giving its complete path. If you leave out the destination directory, the file will be uploaded to your current directory on the remote computer.
+
+When you’re done transferring files, you can leave sftp by entering exit.
+
+*/
+
+
+/*
+
+You can ask the administrator of the remote computer, if there is one. But if the computer is one of your own (or you at least have physical access to it), 
+you can determine its fingerprint with the following command, which you enter in Terminal on that Mac:
+
+ssh-keygen -l -f /private/etc/ssh_host_rsa_key.pub
+*/
+
+/*
+But what if you’re logged in to another Mac via SSH? To restart it, just enter this:
+
+reboot
+
+*/
+
+/*
+Delete Stubborn Items from the Trash
+sudo rm -ri ~/.Trash/*
+*/
