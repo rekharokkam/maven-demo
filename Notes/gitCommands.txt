@@ -10,3 +10,15 @@ git add projects/**
 If .gitignore doesn't work then the fix is 
 run "git rm -r --cached ."
 then again check git status and accordingly add
+
+git clean [-f]
+Remove files that are not tracked.
+
+git reset --hard [HEAD]
+completely remove all staged and unstaged changes to tracked files.
+
+git log --oneline
+shows the SHA of all the checkins as one liners
+
+git show <SHA>
+shows all the new stuff added/modified in that specific check-in
