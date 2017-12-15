@@ -49,5 +49,7 @@ git status -s : run the actual git status, with the -s (short) option
 echo : echo an empty line, for readability
 \; : semicolon to run shell for each of the found directories instead of passing them all to one shell as arguments
 
-
 */
+
+clone from a branch - git clone -b <branch_name> <repo_name/url>
+ex - git clone -b feature/MEM-537-cc-refresher-chase https://rekha@git.sparkred.com/scm/rhw/rhw-estore.git
