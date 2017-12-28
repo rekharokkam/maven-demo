@@ -97,7 +97,9 @@ SSH
 You can ask the administrator of the remote computer, if there is one. But if the computer is one of your own (or you at least have physical access to it), 
 you can determine its fingerprint with the following command, which you enter in Terminal on that Mac:
 
-ssh-keygen -l -f /private/etc/ssh_host_rsa_key.pub
+ssh-keygen -l -f <complete_path_to_the_Key>
+Ex - ssh-keygen -l -f /private/etc/ssh_host_rsa_key.pub [finding the fingerprint of a machine], 
+	ssh-keygen -l -f ~/.ssh/gitHub_id_rsa.pub [finding the fingerprint of a key]
 */
 
 /*
